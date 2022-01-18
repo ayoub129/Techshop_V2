@@ -1,41 +1,49 @@
 <?php
+    // require the config database
     require_once("config/config.php"); 
+    // require the header
     require_once("includes/header.php");
 
+    // init the variables
+    $email = $lname = $fname = $passerr = $emailerr = $fnameerr  = $lnameerr = '';
 
-    $passerr ="";
-    $emailerr ="";
-    $fnameerr = '';
-    $lnameerr = '';
-
+    // whene the form submited
     if(isset($_POST["register"])) {
 
-              // email validation
+        // security functions on input to prevent xss
+        function test_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+
+         // email validation
         if (empty($_POST["email"])) {
             $emailerr = "email is required";
         } 
-        else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        else if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
                 $emailerr = "Invalid email format";
         } 
         else {
             $email = test_input($_POST["email"]);
         }
 
-        
+        // first name required
          if (empty($_POST["fname"] )) {
             $fnameerr = "FirstName is required";
           } else {
             $fname = test_input($_POST["fname"]);
           }
 
-
+        // last name required
           if (empty($_POST["lname"] )) {
             $lnameerr = "LastName is required";
           } else {
             $lname = test_input($_POST["lname"]);
           }
 
-
+        //  password required
           if (empty($_POST["password"] )) {
             $passerr = "password is required";
           } else {
@@ -43,7 +51,7 @@
             $hash_pass = password_hash("$password", PASSWORD_BCRYPT);
           }
 
-
+        //   insert new user on the database if there are no err
           if($passerr == null && $emailerr == null && $lnameerr == null && $fnameerr == null) {
               $sql = "INSERT INTO `users` (`firstname` , `lastname` , `email` , `password` , `isAdmin`) VALUES ('$lname' , '$lname' , '$email' , '$hash_pass' , 'false') ";
               if(mysqli_query($conn , $sql)){  
@@ -98,4 +106,4 @@
 <?php
     require_once("includes/footer.php") 
 ?>
-<!-- good good very good -->
+<!-- Finished -->

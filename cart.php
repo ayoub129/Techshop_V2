@@ -38,9 +38,9 @@
                    if(isset($_SESSION['cart'])) {
                     $count = count($_SESSION['cart']) ;
                     echo "<span class='fw-bold'>$count</span>";
-                } else {
-                    echo "<span class='fw-bold'>0</span>";
-                }
+                    } else {
+                        echo "<span class='fw-bold'>0</span>";
+                    }
                 ?>
                 
                 <span>item'(s) on the cart  </span>

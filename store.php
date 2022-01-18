@@ -19,7 +19,7 @@
     } 
 
     $nbr_elemnts_per_page = 24;
-    $nbr_page = ceil($row2['nmbr_of_products']/ $nbr_elemnts_per_page);
+    $nbr_page = ceil($row['nmbr_of_products']/ $nbr_elemnts_per_page);
     
     // filters
     $filter = $_GET['filterby'];

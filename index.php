@@ -35,21 +35,21 @@
                     <div class="bg-image-1 text-white text-center">
                         <h1 class="fw-bold fs-1 mt-5">Best Accessories</h1>
                         <p class="my-3 lh-lg word-spacing w-75 mx-auto">The Best Tech-Accessories Provided By Us </p>
-                        <a href="store.php?filterby=bestselling" class="btn btn-outline-light ">Shop Now</a>
+                        <a href="store.php?collection_id=1&filterby=bestselling&page=1" class="btn btn-outline-light ">Shop Now</a>
                     </div>
                 </div>
                 <div class="swiper-slide">
                     <div class="bg-image-2 text-white text-center">
                         <h1 class="fw-bold fs-1 mt-5">Latest Products</h1>
                         <p class="my-3 lh-lg word-spacing w-75 mx-auto">Check Our Latest Products Added To Our Store</p>
-                        <a href="store.php?filterby=New" class="btn btn-outline-light ">Shop Now</a>
+                        <a href="store.php?collection_id=1&filterby=New&page=1" class="btn btn-outline-light ">Shop Now</a>
                     </div>
                 </div>
                 <div class="swiper-slide">
                     <div class="bg-image-3 text-white text-center">
                         <h1 class="fw-bold fs-1 mt-5">Phone Accessories</h1>
                         <p class="my-3 lh-lg word-spacing w-75 mx-auto">Shop From The Best Phone Accessories You Need For Your Phone</p>
-                        <a href="store.php?collection_id=2&filterby=New" class="btn btn-outline-light ">Shop Now</a>
+                        <a href="store.php?collection_id=2&filterby=New&page=1" class="btn btn-outline-light ">Shop Now</a>
                     </div>
                 </div>
             </div>
@@ -165,7 +165,7 @@
                         <div  class="card cardhv bg-dark text-white fw-bold h-200">
                             <img src=" <?php echo $row['src'] ?>" alt=" <?php echo $row['name'] ?>" class="img-fluid  image">
                             <div class="background-overlay">
-                                <h5 class="fw-bold text"><?php echo $row['name'] ?></h5>
+                                <h5 class=" text"><?php echo $row['name'] ?></h5>
                             </div>
                         </div>
                     </a>

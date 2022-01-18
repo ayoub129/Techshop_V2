@@ -30,16 +30,15 @@
             <h2 class="text-dark fs-4 fw-bold mb-5">My Account Details</h2>
             <p class="text-muted">
                 Email <br>
-                <?php echo $row['email'] ?>
-
+                <span class="text-dark fw-bold"><?php echo $row['email'] ?> </span>
             </p>
             <p class="text-muted">
                 First Name <br>
-                <?php echo $row['firstname'] ?>
+                <span class="text-dark fw-bold"><?php echo $row['firstname'] ?> </span>
             </p>
             <p class="text-muted">
                 Last Name <br>
-                <?php echo $row['lastname'] ?>
+              <span class="text-dark fw-bold"><?php echo $row['lastname'] ?></span>  
             </p>
             <?php if ($row['isAdmin'] == "true") { ?>
                 <a href="admin/products.php?page=1" class="text-danger">
@@ -62,7 +61,7 @@
                         Uh ho!
                   </h3> 
                   <p class="text-muted">You haven't placed any orders yet.</p>
-                  <a href="store.php" class="btn btn-outline-primary"> Take Me To Shop Now </a>
+                  <a href="store.php?page=1&filterby=bestselling&collection_id=1" class="btn btn-outline-primary"> Take Me To Shop Now </a>
                 </div>
             </div>
             <div class="col-md-2 col-0"></div>
@@ -101,8 +100,16 @@
                                         $sql4 = "SELECT * FROM `products` WHERE `id` = '$product_id'";
                                         $result4 = mysqli_query($conn , $sql4);
                                         while ($row4 = mysqli_fetch_assoc($result4)) {  ?>
-                                                <td scope="row" class="fw-bold w-15"> <a href="product.php?id=<?php echo $product_id ?>"> <img src="<?php echo $row4["src"] ?>" alt="<?php echo $row4["name"] ?>" class="img-fluid"></a></td>
-                                 
+                                                <td scope="row" class="fw-bold w-15">
+                                                    <div class="cardhv bg-dark text-white fw-bold h-150">
+                                                        <a href="product.php?id=<?php echo $product_id ?>"> 
+                                                            <img src="<?php echo $row4["src"] ?>" alt="<?php echo $row4["name"] ?>" class="img-fluid image">
+                                                            <div class="background-overlay">
+                                                                <h5 class="text text-white"><?php echo $row4['name'] ?></h5>
+                                                            </div>
+                                                        </a>
+                                                    </div> 
+                                                </td>
                                                 <td scope="row" class="fw-bold w-15">$<?php echo $row4["price"] ?></td>
                                         <?php } ?>
                                     <td scope="row" class="w-15"><span class="mx-2 fw-bold"><?php echo $row3["Quantity"] ?></span></td>
@@ -129,4 +136,4 @@
     require_once("includes/footer.php")
 ?>
 
-<!-- good good very good -->
+<!-- finished -->

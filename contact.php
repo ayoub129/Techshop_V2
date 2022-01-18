@@ -1,16 +1,31 @@
 <?php 
-        require_once("config/config.php"); 
+        // require the config DB
+        require_once("config/config.php");
+        // require the Header 
         require_once("includes/header.php");
 
-       $nameErr = $emailerr = $msgerr = "";
+        // init the variables
+         $email = $msg = $name = $nameErr = $emailerr = $msgerr = "";
 
+        //  check if the contact form submited
         if(isset($_POST['contact'])) {
+
+          // security check function
+          function test_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+
+            // validate the name
              if (empty($_POST["name"])) {
                 $nameErr = "Name is required";
               } else {
                 $name = test_input($_POST["name"]);
               }
 
+              // validate the email
               if (empty($_POST["email"])) {
                 $emailErr = "email is required";
               } 
@@ -21,6 +36,7 @@
                 $email = test_input($_POST["email"]);
               }
 
+              // validate the msg
               if (empty($_POST["message"])) {
                 $msgerr = "message is required";
               } else {
@@ -28,18 +44,16 @@
               }
 
 
+              // add new contact message
               if($nameErr == null && $emailerr == null && $msgerr == null) {
                   $sql = "INSERT INTO Contacts (`name` , `email` , `message`) VALUES ('$name' , '$email' , '$msg')";
-                  $result = mysqli_query($conn , $sql);
+                  if(mysqli_query($conn , $sql)) {
+                    header("Location: thanks.php");
+                  }
               }
         }
 
-        function test_input($data) {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-        }
+   
 ?>
    <div class="row mt-5">
        <div class="col-md-2 col-0"></div>
@@ -55,7 +69,7 @@
                          <div class="mb-3">
                                  <label for="email" class="form-label">Email</label>
                                  <input type="email" name="email" class="form-control" value="<?php  echo $email ?>" id="email" placeholder="Email Address" >
-                                 <div class="text-danger fw-bold"> <?php  echo $emailErr ?></div>
+                                 <div class="text-danger fw-bold"> <?php  echo $emailerr ?></div>
                          </div>
                          <div class="mb-3">
                                  <label for="msg" class="form-label">Message</label>
@@ -71,3 +85,5 @@
 <?php 
     require_once("includes/footer.php")
 ?>
+
+<!-- finished -->

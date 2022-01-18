@@ -90,7 +90,7 @@ li {
 }
 
 .mt-8 {
-  margin-top: 6em !important;
+  margin-top: 4em !important;
 }
 
 .w-48 {
@@ -127,12 +127,12 @@ li {
   display: block;
   width: 100%;
   height: auto;
-  transition: .5s ease;
+  transition: 0.5s ease;
   backface-visibility: hidden;
 }
 
 .background-overlay {
-  transition: .5s ease;
+  transition: 0.5s ease;
   opacity: 0;
   position: absolute;
   top: 50%;
@@ -158,4 +158,18 @@ li {
 
 .h-200 {
   height: 250px !important;
+}
+
+.h-150 {
+  height: 200px !important;
+}
+
+.h-80 {
+  height: 31.4vh;
+}
+
+.quantity {
+  border: none !important;
+  outline: none !important;
+  width: 20px !important;
 }
