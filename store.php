@@ -120,7 +120,15 @@
        </div>
        <div class="row">
            <?php 
-           while ($row = mysqli_fetch_assoc($result3)) { ?>
+           while ($row = mysqli_fetch_assoc($result3)) {
+               
+            if(count($row) == 0) { ?>
+                <div class="text-center text-dark">
+                    <h3 class="fs-3 fw-bold">
+                        There Is No Product Call  <?php  echo $_GET['search_text'] ?>  on Our Store
+                    </h3>
+                </div>
+            <?php  }    else { ?>
                 <div class="col-md-3 col-sm-6 col-12 mb-5">
                      <div class="card" >
                         <img src="<?php echo $row['src'] ?>" class="img-fluid" alt="<?php echo $row['name'] ?>">
@@ -139,7 +147,7 @@
                         </div>
                       </div>
                  </div>
-             <?php }   ?>
+             <?php }  } ?>
        </div>
        <div class="text-center">
             <div id="pagination" class="mt-5">
@@ -154,3 +162,4 @@
 <?php 
     require_once("includes/footer.php")
 ?>
+<!-- finished -->

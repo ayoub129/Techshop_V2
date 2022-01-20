@@ -37,23 +37,25 @@
         }
       }
 
-    //   discount
+    // check if the send button clicked
     if(isset($_POST['send'])) {
-        
+        // test the inputs for fixing security issues
         function test_input($data) {
             $data = trim($data);
             $data = stripslashes($data);
             $data = htmlspecialchars($data);
             return $data;
         }
-        
+        // test the discount input
         $discount = test_input($_POST['discount']);    
     }
 
+    // get the discount if there any
     $sql2 = "SELECT * FROM discount WHERE `code` = '$discount'";
     $result2 = mysqli_query($conn , $sql2);
 
 ?>
+
     <div class="container">
         <div class="row">
             <div class="col-md-8">
@@ -63,10 +65,14 @@
                     $total = 0;
                     ?> 
                             <?php
+                                // get the products id columns
                                 $product_id = array_column($_SESSION['cart'], column_key:'product_id');
-                                $sql = "SELECT * FROM `products`";
+                                // select the products
+                                $sql = "SELECT * FROM `products`"; 
                                 $result = mysqli_query($conn , $sql);
-                                while ($row = mysqli_fetch_assoc($result)) { 
+                                // get the product and loop through them
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    // check every product that have the same id as that on cart 
                                     foreach ($product_id as $id){
                                         if ($row['id'] == $id){ ?>
                                          <div class="row my-5">
@@ -89,7 +95,7 @@
                                                  <div class="fw-bold fs-4 text-danger mb-5 col-md-1">$<?php echo $row['price'] ?></div>            
                                          </div>
                                     <?php 
-                                        $total = $total + $row['price'];
+                                        $total = $total + $row['price'] * $quantity;
                                         }
                                     }
                                 } ?>
@@ -153,10 +159,39 @@
                     </div>
                 </div>
          </div>
+        <!-- Include the PayPal JavaScript SDK -->
+        <script src="https://www.paypal.com/sdk/js?client-id=AZrHC962mzqUYt7YvmNGgBbOxwmAuBhsJo9fZohu4l2UomOJZR5WoAiCA8sECRpZfFK4mtaxwKf5Zk7g&currency=USD"></script>
+         <script>
+             paypal.Buttons({
+                    // Sets up the transaction when a payment button is clicked
+                    createOrder: function (data, actions) {
+                    return actions.order.create({
+                        purchase_units: [
+                        {
+                            amount: {
+                            value: document.getElementById("amount").textContent, // Can reference variables or functions. Example: `value: document.getElementById('...').value`
+                            },
+                        },
+                        ],
+                    });
+                    },
 
-    <!-- Set up a container element for the button -->
-
-
+                    // Finalize the transaction after payer approval
+                    onApprove: function (data, actions) {
+                    return actions.order.capture().then(function (orderData) {
+                        console.log(orderData);
+                        actions.redirect('success.php');
+                    });
+                    },
+                    onCancel: function (data) {
+                    actions.redirect('canceled.php');
+                    }
+                })
+                .render("#paypal-button-container");
+         </script>
 <?php 
+// require the footer
     require_once("includes/footer.php")
 ?>
+
+<!-- finished -->

@@ -87,6 +87,7 @@
                 <div class="text-center">
                     <div id="pagination" class="mt-5">
                         <?php 
+                        // playing with this
                             for($i=1 ; $i<=$nbr_page;$i++) {
                                 echo "<a class='btn btn-primary' href='?page=".$i."'>".$i."</a>";
                             }

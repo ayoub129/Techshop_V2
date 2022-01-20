@@ -136,4 +136,4 @@
     require_once("includes/footer.php")
 ?>
 
-<!-- finished -->
+<!-- add img and upload functions -->

@@ -1,4 +1,4 @@
-<!-- cart page -->
+<!-- Info page -->
 <?php 
     // require the config for db
     require_once("config/config.php");
@@ -10,26 +10,12 @@
         header("Location : login.php");
     }
 
+    // get the id to get his data
     $id = $_SESSION["id"];
+    // init the variables
     $email = $state = $postal = $discount = $firstname = $city = $country = $phone = $address = $lastname = $nameErr = $emailErr = $countryerr = $addressErr = $postalerr = $phoneErr = "";
 
-    if(isset($_POST['send'])) {
-        
-        function test_input($data) {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-        }
-        
-        $discount = test_input($_POST['discount']);    
-    }
-
-    $sql2 = "SELECT * FROM discount WHERE `code` = '$discount'";
-    $result2 = mysqli_query($conn , $sql2);
-
         if(isset($_POST['info-checkout'])) {
-
             // security check
             function test_input($data) {
                 $data = trim($data);
@@ -86,18 +72,29 @@
                 $city = test_input($_POST["city"]);
               }
 
+             
+
+            //   test the state values
               $state = test_input($_POST["state"]);
 
-            //   if there are full update the user
+            //   if there are no err update the user 
               if( $nameErr == null && $emailErr == null && $countryerr == null && $addressErr == null && $postalerr == null && $phoneErr == null) {
-                  $sql = "UPDATE users SET `lastname`='$lastname'  , `firstname`='$firstname' , `state`='$state' , `country`='$country' , `city`='$city' , `postal`='$postal' , `phone`='$phone' , `address`='$address' WHERE id=$id";
+                if(isset($_POST['promote'])) {
+                     //   update the user except the email with the promotion
+                  $sql = "UPDATE users SET `lastname`='$lastname' ,`firstname`='$firstname' , `state`='$state' , `country`='$country' , `city`='$city' , `postal`='$postal' , `phone`='$phone' , `promote`= 'true', `address`='$address' WHERE id=$id";
+                } else {
+                     //   update the user except the email
+                  $sql = "UPDATE users SET `lastname`='$lastname' ,`firstname`='$firstname' , `state`='$state' , `country`='$country' , `city`='$city' , `postal`='$postal' , `phone`='$phone' , `address`='$address' WHERE id=$id";
+                }
+               
                  if(mysqli_query($conn , $sql)){
+                        // send him to checkout  if the info is uppdated
                         header("Location : checkout.php");
                  } 
               }
         }
 
-        // cart
+        // remove from the cart
         if (isset($_POST['remove'])){
             if ($_GET['action'] == 'remove'){
                 foreach ($_SESSION['cart'] as $key => $value){
@@ -109,10 +106,10 @@
             }
           }
 
-        //   get total
+        // get total
         $total = $_GET['total'];
-
 ?>
+
 <!-- breadcumps -->
 <section class="container mt-4">
     <nav aria-label="breadcrumb">
@@ -130,6 +127,7 @@
         <div class="col-md-6 col-12">
             <h2 class="fs-1 fw-bold text-dark">Contact information</h2>
             <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                <!-- get the data if the user is logged in -->
                 <?php if(isset($_SESSION['id'])) { 
                        $id = $_SESSION['id'];
                        $sql = "SELECT * FROM `users` WHERE `id` = '$id'";
@@ -141,8 +139,9 @@
                         if($row['email'] != null) {echo $row['email'] ;} else   { echo $email;}?>" name="email" placeholder="name@example.com">
                         <div class="text-danger fw-bold"> <?php  echo $emailErr ?></div>
                     </div>
+                    <!-- checkbox  -->
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="checkbox" checked>
+                        <input class="form-check-input" type="checkbox" name="promote" id="checkbox" checked>
                         <label class="form-check-label" for="checkbox">
                             Email me with news and offers
                         </label>
@@ -212,13 +211,14 @@
                         </div>
                     </div>
                 <?php }} ?>
-
-
+                <!-- send the info checkout to DB and redirect to checkout -->
                <button type="submit" name="info-checkout" class="btn btn-primary my-3 w-50">Checkout</button>
             </form>
         </div>
         <div class="col-md-6 col-12">
+            <!-- the summary -->
         <h2 class="fs-1 fw-bold text-dark ">Summary</h2>
+        <!-- subtotal -->
         <div class="d-flex align-items-center justify-content-between ">
             <p class="text-dark">
                 Subtotal Price
@@ -227,15 +227,17 @@
                 $<?php echo $total ?>
             </p>
         </div>
+        <!-- shipping -->
         <div class="d-flex align-items-center justify-content-between mb-2">
             <p class="text-dark">
                  Shipping 
             </p>
-            <p class="text-dark">
-                $0
+            <p class="text-success">
+                FREE
             </p>
         </div>
         <div class="line bg-secondary w-100"></div>
+        <!-- total -->
         <div class="d-flex align-items-center justify-content-between my-3">
             <p class="text-dark">
                  Total 
@@ -259,14 +261,6 @@
         </p>
         <a href="mailto:techshop000.store@gmail.com" class="text-primary">
             techshop000.store@gmail.com
-        </a>
-    </address>
-    <address>
-        <p class="text-dark">
-            Call us
-        </p>
-        <a href="tel:+212 635747467" class="text-primary">
-            +212 635747467
         </a>
     </address>
 </section>

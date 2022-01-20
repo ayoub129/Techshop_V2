@@ -72,11 +72,6 @@
                                         </td>
                                         <td scope="row" class="w-15 fw-bold">
                                                 <a href="product.php?id=<?php echo $row['id'] ?>" class="w-75 text-dark ms-2"><?php echo $row['name'] ?></a>
-                                            <!-- <form  method="post">
-                                                <button id="mince" type="button" class="fw-bold p-0 px-2 btn btn-light">-</button>
-                                                <input name="quantity" class="mx-2 fw-bold w-25" id="quantity" value="1" disabled/>
-                                                <button id="adding" type="button"  class="fw-bold p-0 px-2 btn btn-light">+</button>
-                                            </form> -->
                                             </td>
                                         <td scope="row" class="fw-bold w-15">$<?php echo $row['price'] ?></td>
                                         <td scope="row" class="w-15">
@@ -144,7 +139,6 @@
     </div>
 </section>
 
-<!-- descount and continue section -->
 
 <!-- Email call -->
 <section class="mt-5 justify-content-center text-center container d-flex">

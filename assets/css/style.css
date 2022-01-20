@@ -173,3 +173,19 @@ li {
   outline: none !important;
   width: 20px !important;
 }
+
+.scale {
+  transition: 1s;
+  cursor: pointer;
+}
+
+.scale:hover {
+  transition: 1s;
+  transform: skew(-3deg) scale(1.05);
+}
+
+.scale-container,
+.scale {
+  overflow: hidden;
+  width: 100%;
+}

@@ -4,22 +4,24 @@
             <div class="row pt-5">
                 <div class="col-md-3 col-sm-6 col-12">
                      <a class="fw-bold text-white" href="index.php"> <span class="text-primary">T</span>echShop</a>
-                     <p class="mt-4 lh-lg text-secondary word-spacing">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                     <p class="mt-4 lh-lg text-secondary word-spacing">We are an independent online accessories retailer and we offer you the best offers on the highest quality products.</p>
                 </div>
                 <div class="col-md-3 col-sm-6 col-12">
+                    <!-- collections links -->
                     <p class='fw-bold text-light'>PRODUCTS</p>
                     <ul class='mt-4 ps-0'>
                         <?php  
-                            $sql = "SELECT * FROM `collection` ";
+                            $sql = "SELECT * FROM `collection` ORDER BY `id` DESC LIMIT 0,5";
                             $result = mysqli_query($conn , $sql);
                             while ($row = mysqli_fetch_assoc($result)) { ?>
                                <li class="mb-2">
-                                   <a href="store.php/collection_id=<?php echo $row['id'] ?>" class="text-white hv-primary "><?php echo  $row["name"] ?></a>
+                                   <a href="store.php?collection_id=<?php echo $row['id'] ?>&filterby=bestselling&page=1" class="text-white hv-primary "><?php echo  $row["name"] ?></a>
                                </li>
                         <?php   } ?>
                     </ul>
                 </div>
                 <div class="col-md-3 col-sm-6 col-12">
+                    <!-- about the shop -->
                 <p class='fw-bold text-light'>OUR SHOP</p>
                     <ul class='mt-4 ps-0'>
                          <li class="mb-2">
@@ -40,6 +42,7 @@
                     </ul>
                 </div>
                 <div class="col-md-3 col-sm-6 col-12">
+                    <!-- social media links -->
                     <p class='fw-bold text-light'>LET'S SOCIALIZE</p>
                     <div class="mt-3 d-flex align-items-center justify-content-between w-75">
                         <a href="#" class="rounded-circle text-secondary hv-primary">
@@ -64,14 +67,14 @@
         </div>
         <hr class='bg-white'>
         <div class="container">
+            <!-- copyright section -->
                 <div class="d-flex align-items-center justify-content-between">
                     <p class="text-white">Copyright © <span id='date'></span> TechShop. All Rights Reserved.</p>
                     <p class="text-white">Powred by <a href="https://abbravei.netlify.app/" class='fw-bold hv-primary'>Abbravei</a></p>
                 </div>
         </div>
     </footer>
-    <!-- Include the PayPal JavaScript SDK; replace "test" with your own sandbox Business account app client ID -->
-    <script src="https://www.paypal.com/sdk/js?client-id=AZrHC962mzqUYt7YvmNGgBbOxwmAuBhsJo9fZohu4l2UomOJZR5WoAiCA8sECRpZfFK4mtaxwKf5Zk7g&currency=USD"></script>
+   
     <!-- bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <!-- swiper -->
@@ -80,3 +83,4 @@
     <script src="assets/js/main.js"></script>
     </body>
 </html>
+<!-- finished -->

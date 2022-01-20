@@ -29,7 +29,7 @@
               if (empty($_POST["email"])) {
                 $emailErr = "email is required";
               } 
-              else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+              else if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
                 $emailErr = "Invalid email format";
               }
               else {
